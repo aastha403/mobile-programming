@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Health Tracker</title>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+/* Body */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f4f8;
+}
+
+/* Top Navigation Bar */
+nav {
+    background-color: #90e0ef; /* subtle blue */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+nav .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #023e8a;
+}
+
+/* Menu items horizontal */
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #023e8a;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #0077b6;
+    color: #fff;
+}
+
+/* Hamburger for mobile */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: #0077b6;
+    margin: 4px 0;
+    border-radius: 2px;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #90e0ef;
+        position: absolute;
+        top: 50px;
+        left: 0;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Content */
+.content {
+    padding: 80px 20px 20px 20px; /* leave space for fixed nav */
+}
+
+h1 {
+    color: #0077b6;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+    line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Health Tracker</div>
+    <ul id="nav-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Daily Check</a></li>
+        <li><a href="#">Reminders</a></li>
+        <li><a href="#">Clinics</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</nav>
+
+<div class="content">
+    <h1>Community Health Tracker</h1>
+    <p>Monitor your health daily and get reminders for water, exercise, and medications. This web page adapts to all screen sizes and has a proper top navigation bar.</p>
+</div>
+
+<!-- jQuery for hamburger toggle -->
+<script>
+$(document).ready(function(){
+    $("#hamburger").click(function(){
+        $("#nav-menu").slideToggle();
+    });
+});
+</script>
+
+</body>
+</html>

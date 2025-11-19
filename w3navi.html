@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Responsive Menu</title>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+    body{
+        margin:0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Navigation bar */
+    .navbar{
+        background: #333;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Menu items */
+    .menu{
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu a{
+        color:white;
+        text-decoration:none;
+        font-size:18px;
+    }
+
+    /* Hamburger icon (hidden by default) */
+    .hamburger{
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    /* Mobile menu hidden initially */
+    .mobile-menu{
+        display:none;
+        flex-direction: column;
+        background:#444;
+        padding:10px;
+    }
+
+    .mobile-menu a{
+        color:white;
+        padding:10 px 0;
+    }
+
+    /* -------------------------
+       MEDIA QUERIES
+       ------------------------- */
+
+    /* Above 800px → normal horizontal menu */
+    @media (min-width: 800px){
+        .menu{ display:flex; }
+        .hamburger{ display:none; }
+        .mobile-menu{ display:none !important; }
+    }
+
+    /* Below 600px → hide menu, show hamburger */
+    @media (max-width: 600px){
+        .menu{ display:none; }
+        .hamburger{ display:block; }
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION BAR -->
+<div class="navbar">
+    <div class="logo">My App</div>
+
+    <!-- Normal desktop menu -->
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger">&#9776;</div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+</div>
+
+<script>
+$(document).ready(function(){
+
+    $(".hamburger").click(function(){
+        $(".mobile-menu").slideToggle();  // show/hide menu
+    });
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Health Tracker</title>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+/* Body */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f4f8;
+}
+
+/* Top Navigation Bar */
+nav {
+    background-color: #90e0ef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+nav .logo {
+    font-size: 28px; /* bigger logo */
+    font-weight: bold;
+    color: #023e8a;
+}
+
+/* Menu items horizontal */
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li:last-child {
+    margin-right: 35px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #023e8a;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 20px; /* bigger menu font */
+}
+
+nav ul li a:hover {
+    background-color: #0077b6;
+    color: #fff;
+}
+
+/* Hamburger for mobile */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 35px;
+    z-index: 1001;
+}
+
+.hamburger div {
+    width: 35px;
+    height: 5px;
+    background-color: #023e8a;
+    margin: 6px 0;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #90e0ef;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+
+    nav ul li {
+        margin: 12px 0;
+        text-align: center;
+    }
+
+    nav ul li:last-child {
+        margin-right: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Content */
+.content {
+    padding: 120px 25px 50px 25px;
+    text-align: center;
+}
+
+h1 {
+    color: #0077b6;
+    margin-bottom: 20px;
+    font-size: 48px; /* bigger heading */
+}
+
+p {
+    color: #333;
+    line-height: 1.8;
+    font-size: 22px; /* bigger paragraph */
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Buttons */
+.btn {
+    background-color: #0077b6;
+    color: white;
+    padding: 18px 30px; /* bigger button */
+    border: none;
+    border-radius: 8px;
+    font-size: 22px; /* bigger button font */
+    margin: 20px 15px 0 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #023e8a;
+}
+
+/* Feature cards */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 25px;
+}
+
+.card {
+    background-color: white;
+    padding: 30px; /* bigger padding */
+    border-radius: 15px;
+    width: 280px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card h3 {
+    color: #0077b6;
+    margin-bottom: 15px;
+    font-size: 24px; /* bigger card title */
+}
+
+.card p {
+    color: #333;
+    font-size: 18px; /* bigger card text */
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="logo">Health Tracker</div>
+    <ul id="nav-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Daily Check</a></li>
+        <li><a href="#">Reminders</a></li>
+        <li><a href="#">Clinics</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="content">
+    <h1>Community Health Tracker</h1>
+    <p>Stay on top of your health with daily monitoring, reminders, and access to nearby clinics. Everything you need for a healthy lifestyle in one place.</p>
+    
+    <!-- Buttons -->
+    <button class="btn">Start Daily Check</button>
+    <button class="btn">View Reminders</button>
+
+
+    <!-- Feature Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Symptom Checker</h3>
+            <p>Quickly check your symptoms and get guidance on next steps.</p>
+        </div>
+        <div class="card">
+            <h3>Water & Exercise</h3>
+            <p>Track your hydration and activity to maintain a healthy lifestyle.</p>
+        </div>
+        <div class="card">
+            <h3>Nearby Clinics</h3>
+            <p>Find clinics near you for consultations and health support.</p>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery for hamburger toggle -->
+<script>
+$(document).ready(function(){
+    $("#hamburger").click(function(){
+        $("#nav-menu").slideToggle();
+    });
+});
+</script>
+
+</body>
+</html>
