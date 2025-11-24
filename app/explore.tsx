@@ -1,11 +1,11 @@
 import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
-import { Collapsible } from '@/components/ui/collapsible';
 import { ExternalLink } from '@/components/external-link';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Collapsible } from '@/components/ui/collapsible';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
 
@@ -30,7 +30,7 @@ export default function TabTwoScreen() {
           Explore
         </ThemedText>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
+      <ThemedText>This app includes example code to help get started.</ThemedText>
       <Collapsible title="File-based routing">
         <ThemedText>
           This app has two screens:{' '}
@@ -53,7 +53,7 @@ export default function TabTwoScreen() {
       </Collapsible>
       <Collapsible title="Images">
         <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
+          For static images, we use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
           <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
           different screen densities
         </ThemedText>
@@ -65,16 +65,17 @@ export default function TabTwoScreen() {
           <ThemedText type="link">Learn more</ThemedText>
         </ExternalLink>
       </Collapsible>
+
       <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
+  <ThemedText>
+    The useColorScheme() hook lets you inspect the user's current color scheme.
+  </ThemedText>
+
+  <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
+    <ThemedText type="link">Learn more</ThemedText>
+  </ExternalLink>
+</Collapsible>
+
       <Collapsible title="Animations">
         <ThemedText>
           This template includes an example of an animated component. The{' '}
