@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏥 HealthChecker - Your Personal Health Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            margin: 20px auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 1.8em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #667eea;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            border: 2px solid #e0e7ff;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #f8f9ff;
+            color: #333;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e8eef5;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #f0f4ff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9ff;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 6px 12px;
+            font-size: 12px;
+            width: auto;
+        }
+
+        .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            .form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🏥 HealthChecker</h1>
+    
+    <div class="container">
+        <form class="form" id="healthForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" placeholder="Enter your age" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="heartRate">Heart Rate (bpm):</label>
+            <input type="number" id="heartRate" placeholder="e.g., 72" required>
+
+            <label for="bloodPressure">Blood Pressure:</label>
+            <input type="text" id="bloodPressure" placeholder="e.g., 120/80" required>
+
+            <button type="submit">Add Record</button>
+        </form>
+    </div>
+
+    <h2>Health Records</h2>
+    <table id="recordsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Heart Rate</th>
+                <th>Blood Pressure</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="records"></tbody>
+    </table>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6nqGSufKspwAgNum86ZWNrGeVJruzR9o",
+            authDomain: "mobile-programming-c6478.firebaseapp.com",
+            databaseURL: "https://mobile-programming-c6478-default-rtdb.firebaseio.com",
+            projectId: "mobile-programming-c6478",
+            storageBucket: "mobile-programming-c6478.firebasestorage.app",
+            messagingSenderId: "364333561930",
+            appId: "1:364333561930:web:8198286602eb5877f5ceb3"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        document.getElementById('healthForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+            const heartRate = document.getElementById('heartRate').value;
+            const bloodPressure = document.getElementById('bloodPressure').value;
+
+            db.ref('healthRecords/' + Date.now()).set({
+                name, age, email, heartRate, bloodPressure,
+                timestamp: new Date().toISOString()
+            }).then(() => {
+                alert('Record saved!');
+                document.getElementById('healthForm').reset();
+                loadRecords();
+            }).catch(error => alert('Error: ' + error.message));
+        });
+
+        function loadRecords() {
+            db.ref('healthRecords').on('value', (snapshot) => {
+                const tbody = document.getElementById('records');
+                tbody.innerHTML = '';
+                snapshot.forEach((child) => {
+                    const data = child.val();
+                    const key = child.key;
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${data.name}</td>
+                        <td>${data.age}</td>
+                        <td>${data.email}</td>
+                        <td>${data.heartRate}</td>
+                        <td>${data.bloodPressure}</td>
+                        <td><button class="delete-btn" onclick="deleteRecord('${key}')">Delete</button></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+        }
+
+        function deleteRecord(key) {
+            if (confirm('Delete this record?')) {
+                db.ref('healthRecords/' + key).remove()
+                    .then(() => {
+                        alert('Deleted!');
+                        loadRecords();
+                    })
+                    .catch(error => alert('Error: ' + error.message));
+            }
+        }
+
+        loadRecords();
+    </script>
+</body>
+</html>

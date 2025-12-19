@@ -1,50 +1,149 @@
-# Welcome to your Expo app 👋
+# HealthChecker Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A comprehensive health tracking application with Firebase integration, available for both web and mobile.
 
-## Get started
+## Project Structure
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+health-checker/
+├── app/                    # React Native/Expo Mobile App
+│   ├── index.tsx          # Main app with Firebase authentication & CRUD
+│   ├── _layout.tsx        # Navigation layout
+│   ├── explore.tsx        # Explore screen
+│   └── app.js             # Alternative app version
+│
+├── web/                   # Web-based Applications
+│   ├── firebase.html      # Simple form-based interface
+│   ├── final.html         # Professional multi-screen SPA
+│   └── README.md          # Web app documentation
+│
+├── components/            # React components
+├── constants/             # App constants
+├── hooks/                 # Custom React hooks
+└── package.json           # Dependencies
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Getting Started
 
-## Learn more
+### Web Apps (Easiest)
 
-To learn more about developing your project with Expo, look at the following resources:
+Simply open the HTML files in your browser - **NO BUILD NEEDED!**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+1. **web/final.html** - Full-featured SPA with authentication
+   - Sign Up / Sign In
+   - Add health records
+   - View/Edit/Delete records
+   - Professional multi-screen UI
 
-## Join the community
+2. **web/firebase.html** - Simple form-based interface
+   - Add health records
+   - View records in table
+   - Delete functionality
 
-Join our community of developers creating universal apps.
+### Mobile App (React Native/Expo)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Follow the prompts to choose platform:
+# - Press 'w' for web
+# - Press 'a' for Android (requires emulator)
+# - Press 'i' for iOS (macOS only)
+```
+
+## Features
+
+✅ **Authentication**
+- Firebase Email/Password Sign Up & Sign In
+- Secure session management
+- Auto logout
+
+✅ **CRUD Operations**
+- Create health records (name, age, email, heart rate, blood pressure)
+- Read and display records in real-time
+- Update record information
+- Delete records with confirmation
+
+✅ **Real-time Data**
+- Real-time synchronization with Firebase
+- Instant updates across all sessions
+- User-scoped data (each user sees only their data)
+
+✅ **Professional UI**
+- Gradient backgrounds (#667eea → #764ba2)
+- Smooth animations and transitions
+- Responsive design (mobile & desktop)
+- Glass morphism effects
+- Clean, modern interface
+
+## Firebase Setup
+
+The app uses Firebase Realtime Database and Authentication:
+
+- **Project**: mobile-programming-c6478
+- **Database**: https://mobile-programming-c6478-default-rtdb.firebaseio.com
+- **Auth**: Email/Password authentication
+
+## Available Screens
+
+### index.tsx (Mobile App)
+- **Landing**: Sign Up / Sign In forms
+- **Home**: Dashboard with record list and add form
+- **Details**: View individual record with edit/delete options
+
+### web/final.html (Web SPA)
+- **Login**: Email/password authentication
+- **Signup**: Create new account
+- **Home**: Dashboard and CRUD interface
+- **Details**: View record details
+- **Success**: Confirmation screen
+
+### web/firebase.html (Web Simple)
+- **Form**: Add new health records
+- **Table**: Display all records
+- **Actions**: Delete records
+
+## Development
+
+### Running locally:
+
+```bash
+npm install
+npm start
+```
+
+### Troubleshooting:
+
+If you encounter port conflicts:
+```
+Port 8081 is being used by another process
+→ Press 'y' to use port 8082 instead
+```
+
+If you have bundling errors:
+```bash
+npm cache clean --force
+rm -r node_modules
+npm install
+npm start
+```
+
+## Deployment
+
+**Web Apps**: Copy HTML files to any web server
+**Mobile App**: Use Expo EAS Build for production deployment
+
+```bash
+eas build
+eas submit
+```
+
+---
+
+**Version**: 2.0.0 with Firebase Integration
+**Last Updated**: December 10, 2025
+**Created with**: Expo + React Native + Firebase

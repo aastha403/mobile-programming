@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthChecker</title>
+
+<style>
+body {
+    font-family: Segoe UI, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tabs button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    background: #ffffff30;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.tabs button.active {
+    background: white;
+    color: #667eea;
+}
+
+/* Sections */
+.section {
+    display: none;
+    padding: 20px;
+}
+
+.section.active {
+    display: block;
+}
+
+/* Form */
+form {
+    background: white;
+    color: black;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+/* Table */
+table {
+    width: 95%;
+    margin: auto;
+    background: white;
+    color: black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background: #667eea;
+    color: white;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit {
+    background: #3498db;
+}
+
+.delete {
+    background: #e74c3c;
+}
+</style>
+</head>
+
+<body>
+
+<header>🏥 HealthChecker</header>
+
+<div class="tabs">
+    <button class="active" onclick="openTab('formTab')">Add Record</button>
+    <button onclick="openTab('recordsTab')">View Records</button>
+</div>
+
+<!-- FORM TAB -->
+<div id="formTab" class="section active">
+<form id="healthForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="number" id="age" placeholder="Age" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="number" id="heartRate" placeholder="Heart Rate" required>
+    <input type="text" id="bloodPressure" placeholder="Blood Pressure" required>
+    <textarea id="medicalHistory" placeholder="Medical History"></textarea>
+    <button type="submit">Save Record</button>
+</form>
+</div>
+
+<!-- RECORDS TAB -->
+<div id="recordsTab" class="section">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Age</th>
+<th>Email</th>
+<th>Heart Rate</th>
+<th>BP</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="records"></tbody>
+</table>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>

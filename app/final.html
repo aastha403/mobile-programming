@@ -1,0 +1,335 @@
+<!-- This file has been moved to /web/final.html -->
+<!-- Use that version for web apps -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moved</title>
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            min-height:100vh;
+        }
+        .app-root{min-height:100vh;display:flex;flex-direction:column;}
+        .screen{display:none;flex:1;padding:20px;}
+        .screen.active{display:flex;flex-direction:column;}
+
+        .card{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 8px 32px rgba(0,0,0,0.15);
+            margin:20px auto;
+            max-width:500px;
+            width:100%;
+        }
+        .centered{
+            display:flex;flex-direction:column;align-items:center;
+            justify-content:center;text-align:center;min-height:500px;
+        }
+        .container{
+            display:grid;grid-template-columns:1fr;gap:20px;
+            max-width:1100px;margin:auto;width:100%;
+        }
+        @media(min-width:768px){.container{grid-template-columns:300px 1fr;}}
+
+        .topbar{
+            background:rgba(255,255,255,0.1);
+            backdrop-filter:blur(10px);
+            padding:15px 20px;
+            display:flex;align-items:center;justify-content:space-between;
+            border-radius:10px;margin-bottom:20px;
+        }
+        .title{color:white;font-size:1.3em;font-weight:600;text-align:center;flex:1;}
+
+        button{
+            padding:12px 24px;border:none;border-radius:10px;
+            cursor:pointer;transition:.3s;font-weight:600;font-size:14px;
+        }
+        .primary{
+            background:linear-gradient(135deg,#667eea,#764ba2);color:white;
+        }
+        .secondary{background:#eee;}
+        .danger{background:#ff6b6b;color:white;}
+        .small{padding:8px 16px;font-size:12px;}
+
+        .form{display:flex;flex-direction:column;gap:15px;margin:20px 0;}
+        .form-inline{
+            display:grid;grid-template-columns:1fr 1fr;gap:10px;
+        }
+
+        input{
+            padding:12px;border:2px solid #e0e7ff;border-radius:8px;
+            background:#f8f9ff;transition:.3s;
+        }
+        input:focus{border-color:#667eea;background:white;outline:none;}
+
+        .list-item{
+            padding:15px;background:#f8f9ff;border-radius:10px;
+            border-left:4px solid #667eea;margin-bottom:10px;
+            cursor:pointer;transition:.2s;
+        }
+        .list-item:hover{background:#eef2ff;}
+
+        .toast{
+            position:fixed;bottom:20px;right:20px;
+            padding:15px 25px;border-radius:10px;color:white;
+            animation:slideIn .3s;
+        }
+        .toast.hidden{display:none;}
+        .toast.success{background:#4caf50;}
+        .toast.error{background:#ff6b6b;}
+        @keyframes slideIn{
+            from{opacity:0;transform:translateX(120px);}
+            to{opacity:1;transform:translateX(0);}
+        }
+
+        .check{
+            width:80px;height:80px;border-radius:50%;
+            background:#4caf50;color:white;font-size:3em;
+            display:flex;align-items:center;justify-content:center;
+            margin-bottom:20px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app" class="app-root">
+
+<!-- LOGIN -->
+<section id="screen-login" class="screen active">
+    <div class="card centered">
+        <h1 class="logo">🏥 HealthChecker</h1>
+        <form id="loginForm" class="form">
+            <input id="loginEmail" type="email" placeholder="Email" required>
+            <input id="loginPassword" type="password" placeholder="Password" required>
+            <button class="primary">Sign In</button>
+        </form>
+        <p style="color:white">Don't have an account?
+            <span onclick="showScreen('signup')" style="text-decoration:underline;cursor:pointer;">Create one</span>
+        </p>
+    </div>
+</section>
+
+<!-- SIGNUP -->
+<section id="screen-signup" class="screen">
+    <div class="card centered">
+        <h2>Create Account</h2>
+        <form id="signupForm" class="form">
+            <input id="signupName" type="text" placeholder="Full name" required>
+            <input id="signupEmail" type="email" placeholder="Email" required>
+            <input id="signupPassword" type="password" placeholder="Password" minlength="6" required>
+            <button class="primary">Create Account</button>
+        </form>
+        <p>Already have an account?
+            <span onclick="showScreen('login')" style="color:#667eea;cursor:pointer;">Sign in</span>
+        </p>
+    </div>
+</section>
+
+<!-- HOME -->
+<section id="screen-home" class="screen">
+    <div class="topbar">
+        <div class="title">HealthChecker</div>
+        <button id="signOutBtn" class="secondary small">Sign out</button>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <h3>Add Health Record</h3>
+
+            <form id="addForm" class="form-inline">
+                <input id="healthName" placeholder="Name" required>
+                <input id="healthAge" type="number" placeholder="Age" required>
+                <input id="healthEmail" type="email" placeholder="Email" required>
+                <input id="healthHeartRate" type="number" placeholder="Heart Rate" required>
+                <input id="healthBloodPressure" placeholder="Blood Pressure" required>
+                <button class="primary small">Add</button>
+            </form>
+
+            <p id="recordsCount" class="muted small">0 records</p>
+            <div id="recordsList"></div>
+        </div>
+    </div>
+</section>
+
+<!-- DETAILS -->
+<section id="screen-details" class="screen">
+    <div class="topbar">
+        <button onclick="showScreen('home')" class="secondary small">← Back</button>
+        <div class="title">Record Details</div>
+        <div></div>
+    </div>
+
+    <div class="card">
+        <h2 id="detailName"></h2>
+        <p id="detailAge"></p>
+        <p id="detailEmail"></p>
+        <p id="detailHeartRate"></p>
+        <p id="detailBloodPressure"></p>
+
+        <div style="display:flex;gap:10px;margin-top:20px;">
+            <button id="editBtn" class="secondary">Edit</button>
+            <button id="deleteBtn" class="danger">Delete</button>
+        </div>
+    </div>
+</section>
+
+<!-- SUCCESS -->
+<section id="screen-success" class="screen">
+    <div class="card centered">
+        <div class="check">✔</div>
+        <h2>Record Saved!</h2>
+        <button id="doneBtn" class="primary">Back to Home</button>
+    </div>
+</section>
+
+<div id="toast" class="toast hidden"></div>
+
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+<script>
+/* ====== UI HELPERS ====== */
+function showScreen(name){
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(`screen-${name}`).classList.add("active");
+}
+function toast(msg,type="success"){
+    const t=document.getElementById("toast");
+    t.textContent=msg;
+    t.className=`toast ${type}`;
+    setTimeout(()=>t.classList.add("hidden"),3000);
+}
+
+/* ====== FIREBASE INIT ====== */
+const firebaseConfig={
+    apiKey:"AIzaSyD6nqGSufKspwAgNum86ZWNrGeVJruzR9o",
+    authDomain:"mobile-programming-c6478.firebaseapp.com",
+    databaseURL:"https://mobile-programming-c6478-default-rtdb.firebaseio.com",
+    projectId:"mobile-programming-c6478",
+    storageBucket:"mobile-programming-c6478.firebasestorage.app",
+    messagingSenderId:"364333561930",
+    appId:"1:364333561930:web:8198286602eb5877f5ceb3"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.database();
+
+let selectedRecordId=null;
+
+/* ====== AUTH LISTENER ====== */
+auth.onAuthStateChanged(user=>{
+    if(user){ showScreen("home"); loadRecords(); }
+    else showScreen("login");
+});
+
+/* ====== SIGNUP ====== */
+document.getElementById("signupForm").onsubmit=e=>{
+    e.preventDefault();
+    const name=signupName.value;
+    auth.createUserWithEmailAndPassword(signupEmail.value,signupPassword.value)
+    .then(res=>{
+        res.user.updateProfile({displayName:name});
+        toast("Account Created");
+        showScreen("login");
+    })
+    .catch(err=>toast(err.message,"error"));
+};
+
+/* ====== LOGIN ====== */
+loginForm.onsubmit=e=>{
+    e.preventDefault();
+    auth.signInWithEmailAndPassword(loginEmail.value,loginPassword.value)
+    .catch(err=>toast(err.message,"error"));
+};
+
+/* ====== SIGN OUT ====== */
+signOutBtn.onclick=()=>auth.signOut();
+
+/* ====== ADD RECORD ====== */
+addForm.onsubmit=e=>{
+    e.preventDefault();
+    const u=auth.currentUser;
+    const id=db.ref().child("records").push().key;
+
+    const data={
+        id,
+        userId:u.uid,
+        name:healthName.value,
+        age:healthAge.value,
+        email:healthEmail.value,
+        heartRate:healthHeartRate.value,
+        bloodPressure:healthBloodPressure.value
+    };
+
+    db.ref("records/"+id).set(data).then(()=>{
+        showScreen("success");
+        toast("Record Added");
+    });
+};
+
+/* ====== LOAD RECORDS ====== */
+function loadRecords(){
+    const list=document.getElementById("recordsList");
+    list.innerHTML="";
+
+    db.ref("records").on("value",snap=>{
+        list.innerHTML="";
+        let count=0;
+        snap.forEach(s=>{
+            const r=s.val();
+            if(r.userId===auth.currentUser.uid){
+                count++;
+                const div=document.createElement("div");
+                div.className="list-item";
+                div.textContent=r.name+" • "+r.age+" yrs";
+                div.onclick=()=>openDetails(r);
+                list.appendChild(div);
+            }
+        });
+        recordsCount.textContent=`${count} records`;
+    });
+}
+
+/* ====== OPEN DETAILS ====== */
+function openDetails(r){
+    selectedRecordId=r.id;
+    detailName.textContent=r.name;
+    detailAge.textContent="Age: "+r.age;
+    detailEmail.textContent="Email: "+r.email;
+    detailHeartRate.textContent="Heart Rate: "+r.heartRate;
+    detailBloodPressure.textContent="Blood Pressure: "+r.bloodPressure;
+
+    showScreen("details");
+}
+
+/* ====== DELETE RECORD ====== */
+deleteBtn.onclick=()=>{
+    db.ref("records/"+selectedRecordId).remove().then(()=>{
+        toast("Record Deleted","success");
+        showScreen("home");
+    });
+};
+
+/* ====== EDIT RECORD ====== */
+editBtn.onclick=()=>{
+    const newName=prompt("Enter new name:");
+    if(!newName) return;
+
+    db.ref("records/"+selectedRecordId).update({name:newName})
+        .then(()=>toast("Record Updated"));
+};
+
+doneBtn.onclick=()=>showScreen("home");
+</script>
+
+</body>
+</html>

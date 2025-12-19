@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firebase Realtime Console Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .status.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Firebase Realtime Database Test</h1>
+    <div id="status" class="status error">Loading Firebase...</div>
+    <p>Open your browser console (F12) to see Firebase logs and test data.</p>
+  </div>
+
+  <!-- Link to external script (must be type="module" to use ES imports) -->
+  <script type="module" src="script.js"></script>
+  
+  <script>
+    // Check if script loaded successfully
+    setTimeout(() => {
+      if (window.firebase) {
+        document.getElementById('status').className = 'status success';
+        document.getElementById('status').textContent = '✓ Firebase connected successfully!';
+      }
+    }, 2000);
+  </script>
+</body>
+</html>
